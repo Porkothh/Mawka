@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI endText;
     public GameObject endTextPanel;
     public GameObject ToMenuButton;
-     public GameObject TutorPanel;
+    public GameObject TutorPanel;
     
     [System.Serializable]
     public class ItemToFind
@@ -201,12 +201,12 @@ public class GameManager : MonoBehaviour
         isGameActive = false;
         if (isWin)
         {
-            endText.text="Замурчательно!! Можно и отдохнуть после работы";
+            endText.text="Ура!! Долг погашен!! \nВсего заработано:";
             endTextPanel.SetActive(true);
         }
         else
         {
-            endText.text="Ничего, ты еще покоришь город!!";
+            endText.text="Ничего, ты еще покоришь город!! \n \nВсего заработано:";
             endTextPanel.SetActive(true);
         }
         // Здесь можно добавить показ UI окна с результатами

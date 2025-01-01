@@ -22,9 +22,12 @@ public class TaskManager : MonoBehaviour
 
      private int[,] victoryConditions = new int[,]
     {
-        { 1, 1, 0 }, // Уровень 0
-        { 1, 0, 2 }, // Уровень 1
-        { 1, 1, 1 }, // Уровень 2
+        { 1, 1, 0, 0 }, // Уровень 0
+        { 1, 0, 2, 0 }, // Уровень 1
+        { 1, 1, 1, 0 }, // Уровень 2
+        { 1, 1, 1, 1 }, // Уровень 0
+        { 1, 0, 2, 1 }, // Уровень 1
+        { 1, 1, 1, 1 }, // Уровень 2
     };
 
     private int currentLevel = 0; // Текущий уровень   
@@ -67,6 +70,8 @@ public class TaskManager : MonoBehaviour
         
         }
     }
+
+
 
 public void CreateTask(string objectName, int required, Sprite icon)
 {
@@ -221,7 +226,7 @@ public void CreateTask(string objectName, int required, Sprite icon)
 
     private void ShowVictoryMessage()
     {
-        endText.text=$"Замурчательно!!\nВыплаченно долга: {(currentLevel+1)*25} / {victoryConditions.GetLength(0)*25}";
+        endText.text=$"Замурчательно!!\nСумма заказов: {(currentLevel+1)*25}";
         endTextPanel.SetActive(true);
         NextLevel.SetActive(true);
         // ToMenuButton.SetActive(false);
@@ -229,9 +234,9 @@ public void CreateTask(string objectName, int required, Sprite icon)
         
 
         // Проверяем, достигли ли мы последнего уровня
-        if (currentLevel >= victoryConditions.GetLength(0)-1)
+        if (currentLevel >= 2)
         {
-            endText.text=$"Все заказы упакованы!\nВыплаченно долга: {(currentLevel+1)*25} / {victoryConditions.GetLength(0)*25}!!!";
+            endText.text=$"Все заказы упакованы!\nСумма заказов: {(currentLevel+1)*25}";
             // Скрываем кнопку для перехода на следующий уровень
             NextLevel.SetActive(false); // Скрываем панель, если это необходимо
             ToMenuButton.SetActive(true);
