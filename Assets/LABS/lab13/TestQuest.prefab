@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6301778919622516202
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1477348928594046346}
+  - component: {fileID: 464690441826434583}
+  - component: {fileID: 4309261846927536799}
+  m_Layer: 0
+  m_Name: TestQuest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1477348928594046346
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6301778919622516202}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -11.09, y: 2.16, z: -7.36}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &464690441826434583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6301778919622516202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84a9563a6cae8f344975c49c1f83d31d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  title: "\u041F\u0440\u043E\u0442\u0435\u0441\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C
+    \u0442\u0435\u0441\u0442"
+  description: "\u041D\u0443\u0436\u043D\u043E \u043F\u0440\u043E\u0442\u0435\u0441\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C
+    \u0440\u0430\u0431\u043E\u0442\u0443 \u043A\u0432\u0435\u0441\u0442\u043E\u0432\u043E\u0439
+    \u0441\u0438\u0441\u0442\u0435\u043C\u044B"
+  experienceReward: 10
+  isActive: 0
+  questId: 1
+  rewardItem: {fileID: 11400000, guid: d97691463fdf73545ac05c0c2299f674, type: 2}
+  goal: {fileID: 4309261846927536799}
+--- !u!114 &4309261846927536799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6301778919622516202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 261accf654eb8304a89257175f9466a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  goalType: 1
+  requiredAmount: 10
+  currentAmount: 0
