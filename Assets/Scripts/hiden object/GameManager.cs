@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 
     public TextMeshProUGUI endText;
     public GameObject endTextPanel;
-    public GameObject ToMenuButton;
+    public GameObject To3x3;
     public GameObject TutorPanel;
     
     [System.Serializable]
@@ -201,20 +201,21 @@ public class GameManager : MonoBehaviour
         isGameActive = false;
         if (isWin)
         {
-            endText.text="Ура!! Долг погашен!! \nВсего заработано:";
+            endText.text="Это было вовремя! \nВсего заработано: 75 \n Долг погашен!";
             endTextPanel.SetActive(true);
         }
         else
         {
-            endText.text="Ничего, ты еще покоришь город!! \n \nВсего заработано:";
+            endText.text="Из-за опоздания клиенты отказались платить.. \n Весь прогресс утерян, но ничего, ты еще покоришь город!!";
             endTextPanel.SetActive(true);
+            // To3x3.SetActive(false);
         }
-        // Здесь можно добавить показ UI окна с результатами
+        
     }
 
     public void CloseTutor()
     {
         TutorPanel.SetActive(false);
-        currentTime = gameDuration;
+        InitializeLevel();
     }
 }

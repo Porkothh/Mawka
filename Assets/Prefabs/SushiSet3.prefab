@@ -309,6 +309,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sushi_Small_Narrow_Tuna_Fat_001 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 2564802792099971706, guid: 71f7f7205610ca748afe0434d3abaca4, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -7838687540292144767, guid: e0b1a578475ee764897c6c64363dd533, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

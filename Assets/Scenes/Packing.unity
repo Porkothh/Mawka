@@ -266,6 +266,100 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6953442015027686226, guid: f30c7790cef46c74b942a6b6bf399585, type: 3}
   m_PrefabInstance: {fileID: 825726161}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &122863344
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 122863346}
+  - component: {fileID: 122863345}
+  m_Layer: 0
+  m_Name: Spot Light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!108 &122863345
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 122863344}
+  m_Enabled: 1
+  serializedVersion: 10
+  m_Type: 0
+  m_Shape: 0
+  m_Color: {r: 1, g: 0.5803922, b: 0.8862213, a: 1}
+  m_Intensity: 1.88
+  m_Range: 700
+  m_SpotAngle: 145
+  m_InnerSpotAngle: 21.80208
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+--- !u!4 &122863346
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 122863344}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.67198586, y: -0, z: -0, w: 0.74056405}
+  m_LocalPosition: {x: 560, y: 282, z: 504}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 84.441, y: 0, z: 0}
 --- !u!1001 &145599006
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -798,7 +892,7 @@ Transform:
   m_GameObject: {fileID: 203440221}
   serializedVersion: 2
   m_LocalRotation: {x: 0.40926996, y: -0, z: -0, w: 0.91241336}
-  m_LocalPosition: {x: 617, y: 2188, z: -1723}
+  m_LocalPosition: {x: 526, y: 2188, z: -1723}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1919,7 +2013,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f376716e310ad8147b6a0b7e9e55746a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 878f5f20d67085b44bbfd3e20d5c0be8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2144,6 +2238,7 @@ MonoBehaviour:
   ToMenuButton: {fileID: 1148716427}
   MiniGame: {fileID: 960321459}
   TutorPanel: {fileID: 1634843808}
+  QuitGame: {fileID: 0}
 --- !u!114 &969624043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3197,7 +3292,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1634843809
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4354,7 +4449,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0423\u0440\u043E\u0432\u0435\u043D\u044C 0"
+  m_text: New Text
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9c721b78f9fbd144aa41e09b6b5ea6b6, type: 2}
   m_sharedMaterial: {fileID: 1967592473761855975, guid: 9c721b78f9fbd144aa41e09b6b5ea6b6, type: 2}
@@ -4748,7 +4843,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.9681086, b: 0.88113207, a: 1}
-  m_Intensity: 0.87
+  m_Intensity: 0.8
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -4827,3 +4922,4 @@ SceneRoots:
   - {fileID: 1667081207}
   - {fileID: 2053632297}
   - {fileID: 313156887}
+  - {fileID: 122863346}

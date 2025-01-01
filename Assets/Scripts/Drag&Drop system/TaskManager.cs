@@ -19,59 +19,81 @@ public class TaskManager : MonoBehaviour
     public GameObject ToMenuButton;
     public GameObject MiniGame;
     public GameObject TutorPanel;
+    public GameObject QuitGame;
+
+    private static int savedCurrentLevel = 0; // Статическая переменная для сохранения уровня только между сценами
 
      private int[,] victoryConditions = new int[,]
     {
         { 1, 1, 0, 0 }, // Уровень 0
         { 1, 0, 2, 0 }, // Уровень 1
         { 1, 1, 1, 0 }, // Уровень 2
-        { 1, 1, 1, 1 }, // Уровень 0
-        { 1, 0, 2, 1 }, // Уровень 1
+        { 1, 0, 3, 1 }, // Уровень 1
         { 1, 1, 1, 1 }, // Уровень 2
     };
 
-    private int currentLevel = 0; // Текущий уровень   
+    private int currentLevel // Свойство для работы с уровнем
+    {
+        get { return savedCurrentLevel; }
+        set { savedCurrentLevel = value; }
+    }
+
+    void Awake()
+    {
+        // Проверяем, существует ли уже экземпляр TaskManager
+        TaskManager[] managers = FindObjectsOfType<TaskManager>();
+        if (managers.Length > 1)
+        {
+            // Если уже есть экземпляр, уничтожаем этот
+            Destroy(gameObject);
+            return;
+        }
+
+        DontDestroyOnLoad(gameObject);
+    }
 
     private void Start()
     {
-    
-        int levelsCount = victoryConditions.GetLength(0); // Получаем количество уровней
-        // Debug.Log($"Уровень {currentLevel}"); // Выводим номер уровня в консоль
+        CurrentLevelText.text = $"Уровень {currentLevel}";
+        
+        int levelsCount = victoryConditions.GetLength(0);
 
-        // CurrentLevelText.text = $"Уровень {currentLevel}";
-
-        // Убедимся, что на панели есть Vertical Layout Group
         if (taskPanel.GetComponent<VerticalLayoutGroup>() == null)
         {
             var verticalLayout = taskPanel.gameObject.AddComponent<VerticalLayoutGroup>();
-            verticalLayout.spacing = 10; // Расстояние между тасками
-            verticalLayout.padding = new RectOffset(10, 10, 50, 10); // Отступы от краев
-            verticalLayout.childAlignment = TextAnchor.UpperCenter; // Выравнивание по верхнему краю
+            verticalLayout.spacing = 10;
+            verticalLayout.padding = new RectOffset(10, 10, 50, 10);
+            verticalLayout.childAlignment = TextAnchor.UpperCenter;
             verticalLayout.childControlHeight = false;
             verticalLayout.childControlWidth = false;
         }
 
-        // Находим все DraggableIcon в сцен
         DraggableIcon[] draggableIcons = FindObjectsOfType<DraggableIcon>();
-        // Debug.Log($"Found {draggableIcons.Length} DraggableIcon components");
                     
-        // Пример создания задач для уровня 0
         for (int i = 0; i < victoryConditions.GetLength(1); i++)
         {
-            if (victoryConditions[currentLevel, i] > 0) // Проверяем, нужно ли создавать задачи для этого типа
+            if (victoryConditions[currentLevel, i] > 0)
             {
-                // Debug.Log($"Creating task for object type {i} with required count: {victoryConditions[0, i]}");
-                Debug.Log(draggableIcons[i].gameObject.name);
-                CreateTask(draggableIcons[i].gameObject.name, victoryConditions[0, i], draggableIcons[i].GetIcon());
-            }else
-            {
-                // Debug.Log($"levelsCount {levelsCount}");
+                CreateTask(draggableIcons[i].gameObject.name, victoryConditions[currentLevel, i], draggableIcons[i].GetIcon());
             }
-        
         }
     }
 
+    public void ToNextLevel()
+    {
+        RemoveTasksFromPanel();
+        currentLevel++;
+        CreateTasksForCurrentLevel();
+        onAllTasksCompleted.Invoke();
+        endTextPanel.SetActive(false);
+    }
 
+    public void ResetProgress()
+    {
+        currentLevel = 0;
+        PlayerPrefs.DeleteKey("CurrentLevel");
+        PlayerPrefs.Save();
+    }
 
 public void CreateTask(string objectName, int required, Sprite icon)
 {
@@ -173,17 +195,6 @@ public void CreateTask(string objectName, int required, Sprite icon)
         return false;
     }
 
-    public void ToNextLevel()
-    {
-        // Удаляем задания текущего уровня с панели
-        RemoveTasksFromPanel();
-
-        currentLevel++;
-
-        CreateTasksForCurrentLevel(); // Обновляем список заданий для нового уровня
-        onAllTasksCompleted.Invoke();
-        endTextPanel.SetActive(false);
-    }
 
     public void ReplayLevel()
     {
@@ -226,21 +237,32 @@ public void CreateTask(string objectName, int required, Sprite icon)
 
     private void ShowVictoryMessage()
     {
-        endText.text=$"Замурчательно!!\nСумма заказов: {(currentLevel+1)*25}";
+        endText.text=$"Замурчательно!!\nЗаработано: {(currentLevel+1)*25}";
         endTextPanel.SetActive(true);
         NextLevel.SetActive(true);
         // ToMenuButton.SetActive(false);
         MiniGame.SetActive(false);
         
 
-        // Проверяем, достигли ли мы последнего уровня
-        if (currentLevel >= 2)
+        if (currentLevel == 2)
         {
             endText.text=$"Все заказы упакованы!\nСумма заказов: {(currentLevel+1)*25}";
             // Скрываем кнопку для перехода на следующий уровень
             NextLevel.SetActive(false); // Скрываем панель, если это необходимо
-            ToMenuButton.SetActive(true);
+            ToMenuButton.SetActive(false);
             MiniGame.SetActive(true);
+            currentLevel++;
+            return; // Выходим из метода, так как больше уровней нет
+        }
+
+        if (currentLevel >= victoryConditions.GetLength(0)-1)
+        {
+            endText.text=$"Все заказы упакованы!\nСумма заказов: {(currentLevel+1)*25}! Конец";
+            // Скрываем кнопку для перехода на следующий уровень
+            NextLevel.SetActive(false); // Скрываем панель, если это необходимо
+            ToMenuButton.SetActive(false);
+            MiniGame.SetActive(false);
+            QuitGame.SetActive(true);
             return; // Выходим из метода, так как больше уровней нет
         }
             
