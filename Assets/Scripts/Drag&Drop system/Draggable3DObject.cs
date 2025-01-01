@@ -113,10 +113,12 @@ private void TrySnapToGrid()
             for (int y = 0; y <= 3 - size.y; y++)
             {
                 Vector2Int currentPosition = new Vector2Int(x, y);
+                Debug.Log($"Checking grid position: {currentPosition}");
                 if (gridManager.CanPlaceObject(currentPosition, size))
                 {
                     float distance = Vector3.Distance(transform.position, 
                         GetCenterPosition(currentPosition));
+                    Debug.Log($"Valid position found. Distance: {distance}");
                     
                     if (distance < minDistance)
                     {
@@ -160,16 +162,18 @@ private void TrySnapToGrid()
     }
 }
 
-    private Vector3 GetCenterPosition(Vector2Int gridPosition)
-    {
-        Vector3 startPos = gridManager.GetWorldPosition(gridPosition);
-        Vector3 endPos = gridManager.GetWorldPosition(new Vector2Int(
-            gridPosition.x + size.x - 1,
-            gridPosition.y + size.y - 1
-        ));
-        
-        return (startPos + endPos) * 0.5f;
-    }
+private Vector3 GetCenterPosition(Vector2Int gridPosition)
+{
+    Vector3 startPos = gridManager.GetWorldPosition(gridPosition);
+    Vector3 endPos = gridManager.GetWorldPosition(new Vector2Int(
+        gridPosition.x + size.x - 1,
+        gridPosition.y + size.y - 1
+    ));
+    
+    Vector3 center = (startPos + endPos) * 0.5f;
+    Debug.Log($"Center position calculated: {center}");
+    return center;
+}
 
     private Vector3 GetMouseWorldPosition()
     {

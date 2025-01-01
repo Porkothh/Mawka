@@ -7,36 +7,41 @@ public class GridManager : MonoBehaviour
     public List<Vector2Int> occupiedPoints = new List<Vector2Int>();
     public static List<GridPoint> allGridPoints = new List<GridPoint>();
     public TaskManager TaskManager;
+    public bool isIt3x3level = false; // Added variable
 
-
-    private void Start()
+private void Start()
+{
+    // Находим и сохраняем все точки базового грида
+    Transform gridPointsParent = transform.Find("GridPoints");
+    int pointIndex = 0;
+    
+    Debug.Log("Initializing grid points:");
+    
+    for (int x = 0; x < 3; x++)
     {
-        // Находим и сохраняем все точки базового грида
-        Transform gridPointsParent = transform.Find("GridPoints");
-        int pointIndex = 0;
-        
-        for (int x = 0; x < 3; x++)
+        for (int y = 0; y < 3; y++)
         {
-            for (int y = 0; y < 3; y++)
+            gridPoints[x,y] = gridPointsParent.GetChild(pointIndex);
+            var gridPoint = gridPoints[x,y].gameObject.AddComponent<GridPoint>();
+            allGridPoints.Add(gridPoint);
+
+            string pointName = gridPoints[x,y].name;
+            Debug.Log($"Point at ({x},{y}): {pointName}");
+            
+            // Modified condition based on isIt3x3level
+            if (!isIt3x3level && (pointName == "TablePoint" || 
+                pointName == "TablePoint (1)" || 
+                pointName == "TablePoint (2)"))
             {
-                gridPoints[x,y] = gridPointsParent.GetChild(pointIndex);
-                var gridPoint = gridPoints[x,y].gameObject.AddComponent<GridPoint>();
-                allGridPoints.Add(gridPoint);
-
-                  // Проверяем имя точки и помечаем как занятую если это TablePoint
-                string pointName = gridPoints[x,y].name;
-                if (pointName == "TablePoint" || 
-                    pointName == "TablePoint (1)" || 
-                    pointName == "TablePoint (2)")
-                {
-                    gridPoint.isOccupied = true;
-                    occupiedPoints.Add(new Vector2Int(x, y));
-                }
-
-                pointIndex++;
+                gridPoint.isOccupied = true;  
+                occupiedPoints.Add(new Vector2Int(x, y));
+                Debug.Log($"Marked as occupied: ({x},{y})");
             }
+
+            pointIndex++;
         }
     }
+}
 
     public static void RegisterGridPoint(GridPoint point)
     {
@@ -54,7 +59,7 @@ public class GridManager : MonoBehaviour
     public static GridPoint GetClosestAvailablePoint(Vector3 position)
     {
         GridPoint closest = null;
-        float minDistance = 200f;
+        float minDistance = 150f;
 
         foreach (var point in allGridPoints)
         {
@@ -74,13 +79,23 @@ public class GridManager : MonoBehaviour
 
     public bool CanPlaceObject(Vector2Int position, Vector2Int size)
     {
-        // Проверяем, можно ли разместить объект заданного размера в указанной позиции
+        // Добавьте отладочный вывод
+           Debug.Log("Current occupied points before placement:");
+        foreach (var point in occupiedPoints)
+        {
+            Debug.Log($"Occupied: {point}");
+        }
+        Debug.Log($"Checking position: {position}, size: {size}");
+        
         for (int x = position.x; x < position.x + size.x; x++)
         {
             for (int y = position.y; y < position.y + size.y; y++)
             {
                 if (x >= 3 || y >= 3 || IsPointOccupied(new Vector2Int(x, y)))
+                {
+                    Debug.Log($"Cannot place at {x},{y}");
                     return false;
+                }
             }
         }
         return true;
@@ -137,21 +152,24 @@ public void ClearTable()
         }
     }
 
-    // Заново помечаем TablePoints как занятые
-    for (int x = 0; x < 3; x++)
+    // Заново помечаем TablePoints как занятые только если !isIt3x3level
+    if (!isIt3x3level)
     {
-        for (int y = 0; y < 3; y++)
+        for (int x = 0; x < 3; x++)
         {
-            string pointName = gridPoints[x,y].name;
-            if (pointName == "TablePoint" || 
-                pointName == "TablePoint (1)" || 
-                pointName == "TablePoint (2)")
+            for (int y = 0; y < 3; y++)
             {
-                GridPoint gridPoint = gridPoints[x,y].GetComponent<GridPoint>();
-                if (gridPoint != null)
+                string pointName = gridPoints[x,y].name;
+                if (pointName == "TablePoint" || 
+                    pointName == "TablePoint (1)" || 
+                    pointName == "TablePoint (2)")
                 {
-                    gridPoint.isOccupied = true;
-                    occupiedPoints.Add(new Vector2Int(x, y));
+                    GridPoint gridPoint = gridPoints[x,y].GetComponent<GridPoint>();
+                    if (gridPoint != null)
+                    {
+                        gridPoint.isOccupied = true;
+                        occupiedPoints.Add(new Vector2Int(x, y));
+                    }
                 }
             }
         }
