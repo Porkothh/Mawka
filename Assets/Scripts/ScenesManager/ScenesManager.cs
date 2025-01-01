@@ -28,4 +28,9 @@ public class ScenesManager : MonoBehaviour
     {
         SceneManager.LoadScene("Town");
     }
+
+    public void To3x3()
+    {
+        SceneManager.LoadScene("Packing 3x3");
+    }
 }

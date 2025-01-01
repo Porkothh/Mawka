@@ -221,16 +221,17 @@ public void CreateTask(string objectName, int required, Sprite icon)
 
     private void ShowVictoryMessage()
     {
-        endText.text="Замурчательно!!";
+        endText.text=$"Замурчательно!!\nВыплаченно долга: {(currentLevel+1)*25} / {victoryConditions.GetLength(0)*25}";
         endTextPanel.SetActive(true);
-        ToMenuButton.SetActive(false);
+        NextLevel.SetActive(true);
+        // ToMenuButton.SetActive(false);
         MiniGame.SetActive(false);
         
 
         // Проверяем, достигли ли мы последнего уровня
         if (currentLevel >= victoryConditions.GetLength(0)-1)
         {
-            endText.text="Все заказы упакованы!";
+            endText.text=$"Все заказы упакованы!\nВыплаченно долга: {(currentLevel+1)*25} / {victoryConditions.GetLength(0)*25}!!!";
             // Скрываем кнопку для перехода на следующий уровень
             NextLevel.SetActive(false); // Скрываем панель, если это необходимо
             ToMenuButton.SetActive(true);
@@ -245,6 +246,7 @@ public void CreateTask(string objectName, int required, Sprite icon)
         endText.text="Не каждая из 9 жизней удачна.. В следующий раз получился!";
         endTextPanel.SetActive(true);
         NextLevel.SetActive(false);
+        MiniGame.SetActive(false);
     }
 
     public void ResetTasks()
