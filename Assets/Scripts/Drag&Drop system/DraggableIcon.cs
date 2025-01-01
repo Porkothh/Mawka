@@ -6,6 +6,7 @@ public class DraggableIcon : MonoBehaviour, IPointerClickHandler
 {
     public GameObject objectPrefab;
     public Vector2Int objectSize = new Vector2Int(1, 1);
+    public int angle = 90;
     // Удалено поле public Sprite icon, теперь будем использовать Image компонент
 
     private Image sourceImage;
@@ -20,7 +21,7 @@ public class DraggableIcon : MonoBehaviour, IPointerClickHandler
         Vector3 mouseWorldPos = GetMouseWorldPosition();
         GameObject spawnedObject = Instantiate(objectPrefab, mouseWorldPos, Quaternion.identity);
         spawnedObject.transform.localScale = new Vector3(850f, 850f, 850f);
-        spawnedObject.transform.localRotation = Quaternion.Euler(0, 90, 0);
+        spawnedObject.transform.localRotation = Quaternion.Euler(0, angle, 0);
         
         Draggable3DObject draggableComponent = spawnedObject.AddComponent<Draggable3DObject>();
         draggableComponent.size = objectSize;
